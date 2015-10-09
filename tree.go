@@ -1,3 +1,6 @@
+/*
+Package glob provides a trie(also known as prefix-tree) that supports wildcard *.
+*/
 package glob
 
 type nodeType int
@@ -7,6 +10,7 @@ const (
 	wNode                 // wildcard character
 )
 
+// Trie stores a value for each pattern.
 type Trie struct {
 	root *node
 }
@@ -21,6 +25,7 @@ type node struct {
 	end      bool
 }
 
+// New returns a new trie.
 func New() *Trie { return &Trie{} }
 
 func newTree(pattern string, v interface{}) *node {
@@ -81,7 +86,9 @@ func (n *node) setV(v interface{}) (ov interface{}, is bool) {
 	return
 }
 
-func (t *Trie) Add(pattern string, v interface{}) (ov interface{}, is bool) {
+// Add inserts pattern into trie. If there is an old value for this pattern,
+// old value will be returned and 'has' is set to true.
+func (t *Trie) Add(pattern string, v interface{}) (ov interface{}, has bool) {
 	if pattern == "" {
 		return
 	}
@@ -195,6 +202,8 @@ INSERT:
 	}
 }
 
+// Lookup searchs pattern matching s most precisely and returns value associated with it.
+// If not found, ok will be set to false.
 func (t *Trie) Lookup(s string) (v interface{}, ok bool) {
 	n := lookup(t.root, s)
 	if n != nil {
