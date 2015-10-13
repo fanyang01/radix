@@ -1,4 +1,4 @@
-# Glob [![Circle CI](https://circleci.com/gh/fanyang01/glob.svg?style=svg)](https://circleci.com/gh/fanyang01/glob) [![GoDoc](https://godoc.org/github.com/fanyang01/glob?status.svg)](https://godoc.org/github.com/fanyang01/glob) 
+# Glob [![Circle CI](https://circleci.com/gh/fanyang01/glob.svg?style=svg)](https://circleci.com/gh/fanyang01/glob) [![GoDoc](https://godoc.org/github.com/fanyang01/glob?status.svg)](https://godoc.org/github.com/fanyang01/glob) [![Coverage Status](https://coveralls.io/repos/fanyang01/glob/badge.svg?branch=master&service=github)](https://coveralls.io/github/fanyang01/glob?branch=master)
 
 Package glob provides a trie(also known as prefix-tree) that supports wildcard *.
 
