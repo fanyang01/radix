@@ -25,8 +25,8 @@ type node struct {
 	end      bool
 }
 
-// New returns a new trie.
-func New() *Trie { return &Trie{} }
+// NewTrie returns a new trie.
+func NewTrie() *Trie { return &Trie{} }
 
 func newTree(pattern string, v interface{}) *node {
 	var root, n, child *node

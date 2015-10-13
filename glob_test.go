@@ -63,6 +63,27 @@ func TestTree(t *testing.T) {
 
 }
 
+func TestMatch(t *testing.T) {
+	patterns := []string{
+		"hello*world",
+		"Hello,*world",
+		"*foo*bar",
+	}
+	pattern := Compile(patterns...)
+	assert.True(t, pattern.Match("hello,world"))
+	assert.True(t, pattern.Match("Hello,world"))
+	assert.False(t, pattern.Match("Helloworld"))
+	assert.True(t, pattern.Match("foobar"))
+	assert.False(t, pattern.Match("foobar,"))
+
+	assert.False(t, Match(`\*mark\*`, "mark"))
+	assert.True(t, Match(`\*mark\*`, "*mark*"))
+	assert.True(t, Match(`*abc*`, "aabccc"))
+	assert.True(t, Match(`*abc*`, "abc"))
+	assert.True(t, Match(`*abc*`, "abcabc"))
+	assert.True(t, Match(`*abc*`, "abbabcc"))
+}
+
 func printSibling(node *node) {
 	fmt.Printf("%s: ", node.s)
 	for _, n := range node.child {
