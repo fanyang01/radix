@@ -12,6 +12,7 @@ func TestTree(t *testing.T) {
 		s string
 		i interface{}
 	}{
+		{"*", 0},
 		{"*abcd*ef*", 1},
 		{"*.google.com", 2},
 		{"http://example.com/books/*", 3},
@@ -29,19 +30,19 @@ func TestTree(t *testing.T) {
 		{"abcdef", 1},
 		{"abcdefef", 1},
 		{"abcabcdefgef", 1},
-		{"google.com", nil},
+		{"google.com", 0},
 		{"www.google.com", 2},
 		{"http://example.com/books/", 3},
 		{"http://example.com/", 6},
 		{"http://example.com/*", 5},
 		{"你好世界", 7},
-		{"你你好世界", nil},
+		{"你你好世界", 0},
 		{"你好世界世界界界", 7},
 		{"你好,世界", 7},
 		{"你好,世界。", 7},
-		{`foo\`, nil},
+		{`foo\`, 0},
 		{`foo`, 8},
-		{`b\ar`, nil},
+		{`b\ar`, 0},
 		{`bar`, 9},
 	}
 
@@ -52,13 +53,8 @@ func TestTree(t *testing.T) {
 
 	for _, data := range data {
 		v, ok := tr.Lookup(data.s)
-		if data.v == nil {
-			assert.False(t, ok)
-			assert.Nil(t, v)
-		} else {
-			assert.True(t, ok)
-			assert.Equal(t, data.v, v)
-		}
+		assert.True(t, ok)
+		assert.Equal(t, data.v, v)
 	}
 
 }
@@ -82,6 +78,9 @@ func TestMatch(t *testing.T) {
 	assert.True(t, Match(`*abc*`, "abc"))
 	assert.True(t, Match(`*abc*`, "abcabc"))
 	assert.True(t, Match(`*abc*`, "abbabcc"))
+
+	assert.True(t, Match(`*`, "foobar"))
+	assert.True(t, Match(`*`, ""))
 }
 
 func printSibling(node *node) {

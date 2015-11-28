@@ -106,6 +106,7 @@ INSERT:
 			if len(pattern) > 0 && pattern[0] == '*' {
 				wmatch = true
 			}
+			// else l == 0 thus l != len(n.s)
 			goto SWITCH
 		}
 
@@ -173,6 +174,8 @@ INSERT:
 				child:    n.child,
 				childidx: n.childidx,
 				wcard:    n.wcard,
+				v:        n.v,
+				end:      n.end,
 			}
 			*n = node{}
 			n.s = prefix
