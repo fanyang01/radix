@@ -83,6 +83,54 @@ func TestMatch(t *testing.T) {
 	assert.True(t, Match(`*`, ""))
 }
 
+func BenchmarkMatch(b *testing.B) {
+	patterns := []string{
+		"hello*world",
+		"Hello,*world",
+		"*foo*bar",
+		"*abcd*ef*",
+	}
+	pat := Compile(patterns...)
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		pat.Match("hello,world")
+		pat.Match("Hello,world")
+		pat.Match("Helloworld")
+		pat.Match("foobar")
+		pat.Match("foobar,")
+		pat.Match("abcdef")
+		pat.Match("abcdefef")
+		pat.Match("abcabcdefgef")
+	}
+}
+
+func BenchmarkLookup(b *testing.B) {
+	patterns := []string{
+		"*",
+		"*://example.org/*",
+		"http://example.org/*",
+		"http://example.org/section/*",
+		"http://example.org/",
+		"http://example.org/section/hello/*",
+		"http://example.org/foo/*",
+	}
+	tr := &Trie{}
+	for _, p := range patterns {
+		tr.Add(p, 0)
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		tr.Lookup("hello, world")
+		tr.Lookup("https://example.org/")
+		tr.Lookup("http://example.org/bar")
+		tr.Lookup("http://example.org/section")
+		tr.Lookup("http://example.org/section/")
+		tr.Lookup("http://example.org/")
+		tr.Lookup("http://example.org/section/hello/world")
+		tr.Lookup("http://example.org/foo/hello/world")
+	}
+}
 func printSibling(node *node) {
 	fmt.Printf("%s: ", node.s)
 	for _, n := range node.child {
