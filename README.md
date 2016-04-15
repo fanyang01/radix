@@ -1,4 +1,4 @@
-# Glob [![Circle CI](https://circleci.com/gh/fanyang01/radix.svg?style=svg)](https://circleci.com/gh/fanyang01/radix) [![GoDoc](https://godoc.org/github.com/fanyang01/radix?status.svg)](https://godoc.org/github.com/fanyang01/radix) [![Coverage Status](https://coveralls.io/repos/fanyang01/radix/badge.svg?branch=master&service=github)](https://coveralls.io/github/fanyang01/radix?branch=master)
+# Radix [![Circle CI](https://circleci.com/gh/fanyang01/radix.svg?style=svg)](https://circleci.com/gh/fanyang01/radix) [![GoDoc](https://godoc.org/github.com/fanyang01/radix?status.svg)](https://godoc.org/github.com/fanyang01/radix) [![Coverage Status](https://coveralls.io/repos/fanyang01/radix/badge.svg?branch=master&service=github)](https://coveralls.io/github/fanyang01/radix?branch=master)
 
 Package glob provides a trie(also known as prefix-tree) that supports wildcard character '\*'.
 
