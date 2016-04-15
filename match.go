@@ -1,12 +1,12 @@
-package glob
+package radix
 
 type Pattern struct {
-	trie Trie
+	trie PatternTrie
 }
 
 // Compile compiles several alternative patterns into one.
 func Compile(patterns ...string) *Pattern {
-	p := &Pattern{Trie{}}
+	p := &Pattern{PatternTrie{}}
 	for _, pattern := range patterns {
 		p.trie.Add(pattern, struct{}{})
 	}
